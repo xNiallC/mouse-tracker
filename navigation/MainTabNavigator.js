@@ -1,7 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -54,8 +53,14 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createMaterialBottomTabNavigator({
+export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+}, {
+  tabBarOptions: {
+    safeAreaInset: {
+      bottom: 'never', top: 'never'
+    }
+  }
 });
