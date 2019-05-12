@@ -2,7 +2,6 @@ export const GET_WAIT_TIMES = 'GET_WAIT_TIMES'
 export const REQUEST_WAIT_TIMES = 'REQUEST_WAIT_TIMES'
 
 export const FAVOURITE_RIDE = 'FAVOURITE_RIDE'
-export const UNFAVOURITE_RIDE = 'UNFAVOURITE_RIDE'
 
 import api from 'app/api';
 
@@ -23,4 +22,8 @@ export const getWaitTimes = (park) => {
       .then(({ attractions }) => dispatch(receiveWaitTimes(park, attractions)))
       .catch(() => dispatch(receiveWaitTimes(park, [])))
   }
+}
+
+export const favouriteRide = (park, rideId) => {
+  return (dispatch) => { return dispatch({ type: FAVOURITE_RIDE, park, ride: rideId }) }
 }

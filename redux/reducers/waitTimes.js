@@ -60,12 +60,11 @@ const waitTimesReducer = (state = initialState, action) => {
           }
         }
       } else {
-        favourites.push(action.ride);
         return {
           ...state,
           [action.park]: {
             ...state[action.park],
-            favourites
+            favourites: [...state[action.park].favourites, action.ride]
           }
         }
       }
