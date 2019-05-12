@@ -2,15 +2,14 @@ import React from 'react';
 import {
   FlatList,
   View,
+  TouchableHighlight
 } from 'react-native';
 import {
-  Text,
-  Surface
+  Card
 } from 'react-native-paper'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getWaitTimes } from 'app/redux/actions/waitTimes'
-import api from 'app/api';
+import {
+  parks
+} from 'app/util/constants'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,44 +22,28 @@ class HomeScreen extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchWaitTimes('magicKingdom')
-  }
-
   renderItem = ({ item }) => (
-    <Surface style={{elevation: 3, marginHorizontal: 5, marginVertical: 10, padding: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
-      <Text>{item.name}</Text>
-      <Text>Wait: {item.waitTime} mins</Text>
-    </Surface>
+    <TouchableHighlight onPress={() => this.props.navigation.navigate('Park', { 'parkName': item.id })}>
+      <Card>
+        <Card.Cover source={item.coverImage} />
+        <Card.Title title={item.name} />
+      </Card>
+    </TouchableHighlight>
+
   )
 
   render() {
-    const { waitTimes, fetching } = this.props;
+    console.log(parks);
     return (
       <View style={{ flex: 1 }}>
         <FlatList
-          data={waitTimes}
+          keyExtractor={item => item.id}
+          data={parks}
           renderItem={this.renderItem}
-          refreshing={fetching}
         />
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ waitTimesReducer }, ownProps) => {
-  const { fetching } = waitTimesReducer;
-  const { waitTimes, favourites } = waitTimesReducer['magicKingdom']
-
-  return {
-    fetching,
-    waitTimes,
-    favourites
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  fetchWaitTimes: bindActionCreators(getWaitTimes, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+export default HomeScreen
