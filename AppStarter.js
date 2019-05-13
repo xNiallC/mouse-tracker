@@ -2,8 +2,9 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, SafeAreaView } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 import AppNavigator from './navigation/AppNavigator';
-import store from 'app/redux/store'
+import { store, persistor } from 'app/redux/store'
 
 export default class App extends React.Component {
   state = {
@@ -22,10 +23,12 @@ export default class App extends React.Component {
     } else {
       return (
         <Provider store={store}>
-          <SafeAreaView style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </SafeAreaView>
+          <PersistGate loading={null} persistor={persistor}>
+            <SafeAreaView style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+              <AppNavigator />
+            </SafeAreaView>
+          </PersistGate>
         </Provider>
       );
     }

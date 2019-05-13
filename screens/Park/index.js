@@ -27,10 +27,17 @@ const mapStateToProps = ({ waitTimesReducer }, ownProps) => {
   const { fetching } = waitTimesReducer;
   const parkName = ownProps.navigation.getParam('parkName')
   const { waitTimes, favourites } = waitTimesReducer[parkName]
+  const favouritesWaitTimes = []
+  favourites.forEach(favourite => {
+    favouriteWaitTime = waitTimes.find(w => w.id === favourite)
+    if(favouriteWaitTime) favouritesWaitTimes.push(favouriteWaitTime)
+  })
+  const filteredWaitTimes = waitTimes.filter(w => !favourites.includes(w.id))
   return {
     fetching,
-    waitTimes,
-    favourites
+    waitTimes: filteredWaitTimes,
+    favourites,
+    favouritesWaitTimes
   }
 }
 

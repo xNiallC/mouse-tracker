@@ -9,3 +9,7 @@ class FavouritesScreen extends React.Component {
     return ()
   }
 }
+
+const mapStateToProps = ({ waitTimesReducer}) => {
+  const 
+}

@@ -20,7 +20,9 @@ export const getWaitTimes = (park) => {
     dispatch(requestWaitTimes())
     return api.waitTimes.get(park)
       .then(({ attractions }) => dispatch(receiveWaitTimes(park, attractions)))
-      .catch(() => dispatch(receiveWaitTimes(park, [])))
+      .catch(err => {
+        dispatch(receiveWaitTimes(park, []))
+      })
   }
 }
 

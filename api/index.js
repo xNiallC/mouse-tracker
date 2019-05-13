@@ -1,10 +1,9 @@
 import waitTimes from './waitTimes'
 
-const apiUri = 'http://192.168.0.14:5000'
+const apiUri = 'http://192.168.0.14:5001'
 
 const api = {
   req(method, path, headers, data) {
-    console.log(`${apiUri}/api${path}`)
     return fetch(`${apiUri}/api/${path}`, { method, body: data && JSON.stringify(data), headers })
       .then(res => (res.ok
         ? res

@@ -10,6 +10,7 @@ import {
 import {
   parks
 } from 'app/util/constants'
+import api from 'app/api';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
