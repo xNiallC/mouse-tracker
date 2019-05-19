@@ -1,4 +1,5 @@
 import waitTimes from './waitTimes'
+import parkInfo from './parkInfo'
 
 const apiUri = 'http://192.168.0.14:5001'
 
@@ -20,7 +21,8 @@ const api = {
     return api.req(method, path, headers, data);
   },
 
-  waitTimes
+  waitTimes,
+  parkInfo
 };
 
 export default api;
